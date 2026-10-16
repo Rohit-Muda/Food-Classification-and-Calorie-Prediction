@@ -1,0 +1,6 @@
+food_class,reference_calories_kcal,reference_basis,calorie_category,source
+Burger,485.39,"Mean of representative Burger King burger entries from Nutrition_Value_Dataset.csv (per serve)",High,"Nutrition_Value_Dataset.csv (representative burger items)"
+Fries,373.81,"Mean of representative fries entries from Nutrition_Value_Dataset.csv (per serve)",Medium,"Nutrition_Value_Dataset.csv (representative fries items)"
+Pizza,410.92,"Mean of representative personal pizza entries from Nutrition_Value_Dataset.csv (per serve)",High,"Nutrition_Value_Dataset.csv (representative pizza items)"
+Donut,300.00,"Representative donut reference value; no matching donut entries were found in the supplied CSV.",Medium,"External representative reference (not from supplied CSV)"
+Sandwich,365.00,"Mean of breakfast sandwich entries from Nutrition_Value_Dataset.csv (per serve)",Medium,"Nutrition_Value_Dataset.csv (breakfast sandwich items)"

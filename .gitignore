@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+*.keras
+!food_classifier.keras
+outputs/
+prepared_data/
+*.log
