@@ -6,8 +6,10 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, UnidentifiedImageError
 
+from config import SAVED_MODEL_PATH
 from dataset_utils import tensorflow_compatible_path
 from inference import (
+    SavedModelPredictor,
     decode_uploaded_image,
     file_hash,
     preprocess_for_model,
@@ -89,6 +91,19 @@ class InferenceTests(unittest.TestCase):
                 self.assertEqual(image.format, "PNG")
             with Image.open(source) as image:
                 self.assertEqual(image.format, "WEBP")
+
+    def test_deployed_saved_model_loads_and_predicts(self) -> None:
+        if not SAVED_MODEL_PATH.is_dir():
+            self.skipTest("Portable SavedModel export is not present.")
+
+        model = SavedModelPredictor(SAVED_MODEL_PATH)
+        sample = np.zeros((1, *model.input_shape[1:]), dtype=np.float32)
+        probabilities = model.predict(sample)
+
+        self.assertEqual(model.output_shape, (None, 10))
+        self.assertEqual(probabilities.shape, (1, 10))
+        self.assertTrue(np.isfinite(probabilities).all())
+        np.testing.assert_allclose(probabilities.sum(axis=1), [1.0], atol=1e-5)
 
 
 if __name__ == "__main__":

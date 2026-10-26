@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 DATASET_ROOT = ROOT / "Fast Food Classification V2"
 MODEL_PATH = ROOT / "food_classifier.keras"
+SAVED_MODEL_PATH = ROOT / "food_classifier_saved_model"
 CLASS_PATH = ROOT / "class_names.json"
 CALORIES_PATH = ROOT / "calories.csv"
 OUTPUTS_DIR = ROOT / "outputs"

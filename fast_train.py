@@ -25,6 +25,7 @@ import tensorflow as tf
 from sklearn.metrics import classification_report, confusion_matrix
 
 from dataset_utils import tensorflow_compatible_path
+from inference import export_saved_model
 
 SEED = 42
 random.seed(SEED)
@@ -35,6 +36,7 @@ ROOT = Path(__file__).resolve().parent
 DATASET_ROOT = ROOT / "Fast Food Classification V2"
 OUTPUTS_DIR = ROOT / "outputs"
 MODEL_PATH = ROOT / "food_classifier.keras"
+SAVED_MODEL_PATH = ROOT / "food_classifier_saved_model"
 CLASS_PATH = ROOT / "class_names.json"
 OUTPUTS_DIR.mkdir(exist_ok=True)
 
@@ -202,6 +204,7 @@ test_probabilities = full_model.predict(test_ds, verbose=1)
 best_y_pred = np.argmax(test_probabilities, axis=1)
 best_test_acc = float(np.mean(best_y_pred == y_test))
 full_model.save(str(MODEL_PATH))
+export_saved_model(full_model, SAVED_MODEL_PATH)
 CLASS_PATH.write_text(json.dumps(ALL_CLASSES, indent=2), encoding="utf-8")
 (ROOT / "model_config.json").write_text(
     json.dumps(

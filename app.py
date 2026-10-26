@@ -19,14 +19,22 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image, UnidentifiedImageError
 
-from inference import decode_uploaded_image, file_hash, preprocess_for_model, run_inference
+from inference import (
+    PredictionModel,
+    SavedModelPredictor,
+    decode_uploaded_image,
+    file_hash,
+    preprocess_for_model,
+    run_inference,
+)
 
 # ─────────────────────────────────────────────
 #  CONFIGURATION
 # ─────────────────────────────────────────────
 try:
     from config import (
-        ROOT, MODEL_PATH, CLASS_PATH, CALORIES_PATH, CONFIG_PATH, ALL_CLASSES,
+        ROOT, MODEL_PATH, SAVED_MODEL_PATH, CLASS_PATH, CALORIES_PATH,
+        CONFIG_PATH, ALL_CLASSES,
         CONFIDENCE_THRESHOLD as CONFIDENCE_WARN,
         SUPPORTED_FILE_TYPES as SUPPORTED_TYPES,
         DEFAULT_IMAGE_SIZE as _DEFAULT_IMAGE_SIZE,
@@ -35,6 +43,7 @@ try:
 except ImportError:
     ROOT             = Path(__file__).resolve().parent
     MODEL_PATH       = ROOT / "food_classifier.keras"
+    SAVED_MODEL_PATH = ROOT / "food_classifier_saved_model"
     CLASS_PATH       = ROOT / "class_names.json"
     CALORIES_PATH    = ROOT / "calories.csv"
     CONFIG_PATH      = ROOT / "model_config.json"
@@ -61,19 +70,24 @@ logger = logging.getLogger(__name__)
 # ─────────────────────────────────────────────
 
 @st.cache_resource(show_spinner=False)
-def load_model() -> tuple[tf.keras.Model, list[str], tuple[int, int]]:
-    """Load the trained model and class names. Returns image size from model input shape."""
-    if not MODEL_PATH.exists():
+def load_model() -> tuple[PredictionModel, list[str], tuple[int, int]]:
+    """Load the portable model and class map; return model input image size."""
+    if not SAVED_MODEL_PATH.is_dir() and not MODEL_PATH.exists():
         raise FileNotFoundError(
-            f"Model file not found at '{MODEL_PATH}'. "
-            "Run train_model.py first to generate food_classifier.keras."
+            f"No model found at '{SAVED_MODEL_PATH}' or '{MODEL_PATH}'. "
+            "Run the model export step before starting the app."
         )
     if not CLASS_PATH.exists():
         raise FileNotFoundError(
             f"Class mapping not found at '{CLASS_PATH}'. "
             "Run train_model.py to regenerate class_names.json."
         )
-    model = tf.keras.models.load_model(str(MODEL_PATH), compile=False, safe_mode=True)
+    if SAVED_MODEL_PATH.is_dir():
+        model = SavedModelPredictor(SAVED_MODEL_PATH)
+    else:
+        model = tf.keras.models.load_model(
+            str(MODEL_PATH), compile=False, safe_mode=True
+        )
     classes = json.loads(CLASS_PATH.read_text(encoding="utf-8"))
     if (
         not isinstance(classes, list)

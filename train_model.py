@@ -38,6 +38,7 @@ import tensorflow as tf
 from sklearn.metrics import classification_report, confusion_matrix
 
 from dataset_utils import tensorflow_compatible_path
+from inference import export_saved_model
 
 # ─────────────────────────────────────────────
 #  REPRODUCIBILITY
@@ -53,6 +54,7 @@ tf.keras.utils.set_random_seed(SEED)
 ROOT         = Path(__file__).resolve().parent
 DATASET_ROOT = ROOT / "Fast Food Classification V2"
 MODEL_PATH   = ROOT / "food_classifier.keras"
+SAVED_MODEL_PATH = ROOT / "food_classifier_saved_model"
 CLASS_PATH   = ROOT / "class_names.json"
 OUTPUTS_DIR  = ROOT / "outputs"
 IMAGE_EXTS   = {".jpg", ".jpeg", ".png"}
@@ -575,6 +577,7 @@ def main() -> None:
 
     # ── Save best model ──
     best["model"].save(str(MODEL_PATH))
+    export_saved_model(best["model"], SAVED_MODEL_PATH)
     CLASS_PATH.write_text(json.dumps(ALL_CLASSES, indent=2), encoding="utf-8")
     (ROOT / "model_config.json").write_text(
         json.dumps(

@@ -46,7 +46,8 @@ DL_Food_Classification/
 ├── config.py                     # Centralized configuration (paths, classes, thresholds)
 ├── model_config.json             # Runtime model metadata & resolution config
 ├── train_model.py                # Multi-model training & comparison pipeline
-├── food_classifier.keras         # Best trained model (loaded by app.py)
+├── food_classifier.keras         # Keras training checkpoint
+├── food_classifier_saved_model/  # Portable TensorFlow serving export
 ├── class_names.json              # Class index -> label mapping (alphabetical order)
 ├── calories.csv                  # Nutrition reference lookup table (all 10 classes)
 ├── Nutrition_Value_Dataset.csv   # Source nutritional dataset
@@ -150,7 +151,8 @@ The existing `outputs/classification_report.txt` records approximately **82.5%**
    - `app.py`
    - `config.py`
    - `model_config.json`
-   - `food_classifier.keras` (transfer learning model is only ~15–20 MB, well under GitHub's 100MB limit)
+   - `food_classifier_saved_model/` (required portable TensorFlow serving export; commit the complete directory)
+   - `food_classifier.keras` (optional local/training checkpoint)
    - `class_names.json`
    - `calories.csv`
    - `Nutrition_Value_Dataset.csv`
@@ -162,7 +164,7 @@ The existing `outputs/classification_report.txt` records approximately **82.5%**
    - Navigate to [share.streamlit.io](https://share.streamlit.io).
    - Click **New app** and connect your GitHub repository.
    - Set **Main file path** to `app.py`.
-   - Under **Advanced settings**, select **Python 3.11**. The Python 3.14 runtime in the reported deployment log is incompatible with the TensorFlow package previously specified by this project.
+   - Under **Advanced settings**, select **Python 3.11** for the tested TensorFlow deployment runtime.
    - Click **Deploy**.
 
 ---
@@ -197,7 +199,7 @@ If you are a new AI agent or developer continuing this repository:
    ```
 5. **Key Architectural Guarantees**:
    - `app.py` extracts `image_size` directly from `model.input_shape` so whatever resolution model was trained on is automatically matched during inference.
-   - Preprocessing uses the model's input dimensions, training-matched bilinear resizing, and `[0, 1]` scaling; model-internal preprocessing handles the rest.
+   - Inference loads the TensorFlow SavedModel serving signature, avoiding Keras-version-specific `.keras` deserialization. Preprocessing uses the model's input dimensions, training-matched bilinear resizing, and `[0, 1]` scaling.
    - Uploads are validated, EXIF orientation is applied, and session state hashing prevents stale predictions when changing or removing images.
 
 ---
