@@ -162,7 +162,7 @@ The existing `outputs/classification_report.txt` records approximately **82.5%**
    - Navigate to [share.streamlit.io](https://share.streamlit.io).
    - Click **New app** and connect your GitHub repository.
    - Set **Main file path** to `app.py`.
-   - Under **Advanced settings**, select **Python 3.11**. The pinned TensorFlow 2.15 runtime does not support Community Cloud's default Python 3.12.
+   - Under **Advanced settings**, select **Python 3.11**. The Python 3.14 runtime in the reported deployment log is incompatible with the TensorFlow package previously specified by this project.
    - Click **Deploy**.
 
 ---
