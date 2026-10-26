@@ -1,0 +1,9 @@
+MODEL COMPARISON
+Model                                  Val Acc   Test Acc   Train Time
+----------------------------------------------------------------------
+Improved CNN (Baseline)                 12.69%      9.33%     11.2 min
+MobileNetV2 + Deep MLP Head              79.1%      82.5%       169.6s
+MobileNetV2 + Linear Head                76.3%      79.9%         4.1s
+
+Selected Model : MobileNetV2 + Deep MLP Head
+Test Accuracy  : 82.53%

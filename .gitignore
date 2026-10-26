@@ -5,8 +5,20 @@ __pycache__/
 venv/
 .ipynb_checkpoints/
 .DS_Store
+
+# Dataset — do not commit to repo (too large)
+Fast Food Classification V2/
+
+# Intermediate training checkpoints (keep only final model)
+outputs/cnn_best.keras
+outputs/mobilenet_best.keras
+outputs/efficientnet_best.keras
+outputs/converted_images/
+
+# Other large keras artifacts (do NOT ignore the final model below)
 *.keras
 !food_classifier.keras
-outputs/
-prepared_data/
+
+# Logs
 *.log
+TFRecords/

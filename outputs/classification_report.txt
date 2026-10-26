@@ -1,0 +1,16 @@
+                precision    recall  f1-score   support
+
+  Baked Potato      0.772     0.980     0.863       100
+        Burger      0.861     0.835     0.848       200
+Crispy Chicken      0.906     0.960     0.932       100
+         Donut      0.953     0.905     0.928       200
+         Fries      0.808     0.840     0.824       100
+       Hot Dog      0.909     0.750     0.822       200
+         Pizza      0.926     0.880     0.903       200
+      Sandwich      0.845     0.820     0.832       200
+          Taco      0.482     0.800     0.602       100
+       Taquito      0.656     0.420     0.512       100
+
+      accuracy                          0.825      1500
+     macro avg      0.812     0.819     0.807      1500
+  weighted avg      0.841     0.825     0.827      1500

@@ -1,6 +1,11 @@
 food_class,reference_calories_kcal,reference_basis,calorie_category,source
+Baked Potato,252.00,"Representative plain baked potato (medium, ~173g). No toppings.",Low,"USDA FoodData Central (plain baked potato, medium)"
 Burger,485.39,"Mean of representative Burger King burger entries from Nutrition_Value_Dataset.csv (per serve)",High,"Nutrition_Value_Dataset.csv (representative burger items)"
+Crispy Chicken,320.00,"Representative crispy chicken sandwich / piece serving (~120g). Value derived from fast-food crispy chicken items.",Medium,"Representative fast-food crispy chicken reference (external)"
+Donut,300.00,"Representative glazed donut (~75g). No premium toppings.",Medium,"USDA FoodData Central (glazed donut, medium)"
 Fries,373.81,"Mean of representative fries entries from Nutrition_Value_Dataset.csv (per serve)",Medium,"Nutrition_Value_Dataset.csv (representative fries items)"
+Hot Dog,290.00,"Representative hot dog in bun (~100g). Standard beef frank with plain bun.",Medium,"USDA FoodData Central (beef hot dog with bun)"
 Pizza,410.92,"Mean of representative personal pizza entries from Nutrition_Value_Dataset.csv (per serve)",High,"Nutrition_Value_Dataset.csv (representative pizza items)"
-Donut,300.00,"Representative donut reference value; no matching donut entries were found in the supplied CSV.",Medium,"External representative reference (not from supplied CSV)"
 Sandwich,365.00,"Mean of breakfast sandwich entries from Nutrition_Value_Dataset.csv (per serve)",Medium,"Nutrition_Value_Dataset.csv (breakfast sandwich items)"
+Taco,210.00,"Representative beef taco in corn tortilla (~85g). Standard fast-food style.",Low,"USDA FoodData Central (beef taco, fast food style)"
+Taquito,180.00,"Representative rolled beef taquito (~60g). Standard frozen/fast-food style.",Low,"USDA FoodData Central (beef taquito, rolled)"

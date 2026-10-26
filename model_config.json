@@ -1,0 +1,5 @@
+{
+  "image_size": [160, 160],
+  "confidence_warn_threshold": 0.55,
+  "model_name": "MobileNetV2 + Deep MLP Head"
+}
